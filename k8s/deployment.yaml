@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-anchal
+  labels:
+    app: flask-anchal
+spec:
+  selector:
+    matchLabels:
+      app: flask-anchal
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: flask-anchal
+        tier: web
+    spec:
+      containers:
+      - name: flask-anchal
+        image: us-central1-docker.pkg.dev/praxis-water-391016/practice-repo/hello-anchal:v1
+        ports:
+        - containerPort: 5001
+        resources:
+          requests:
+            cpu: 200m
+
