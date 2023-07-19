@@ -1,0 +1,13 @@
+steps:
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'us-central1-docker.pkg.dev/praxis-water-391016/anchalproject-repo/hello-anchal:$SHORT_SHA', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/praxis-water-391016/anchalproject-repo/hello-anchal:$SHORT_SHA']   
+- name: 'gcr.io/cloud-builders/gke-deploy'
+  args:
+  - 'run'
+  - '--filename=k8s/'
+  - '--image=us-central1-docker.pkg.dev/praxis-water-391016/anchalproject-repo/hello-anchal:$SHORT_SHA'
+  - '--location=us-central1-c'
+  - '--cluster=cluster-demo-1'
